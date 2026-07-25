@@ -1,3 +1,5 @@
+<img width="1536" height="1024" alt="ChatGPT Image 26 Jul 2026, 03 09 54" src="https://github.com/user-attachments/assets/b1ea49b7-fe40-4ad3-a569-eea6de278bf3" />
+
 # 📦 Inventara
 
 A modern warehouse inventory management system built with **Laravel 12**, **React 19**, and **MySQL**.
