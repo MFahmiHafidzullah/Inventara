@@ -1,14 +1,3 @@
-┌──────────────────────────────────────────────┐
-│                                              │
-│              📦 INVENTARA                    │
-│     Warehouse Management System              │
-│                                              │
-│      Laravel • React • MySQL • Tailwind      │
-│                                              │
-└──────────────────────────────────────────────┘
-
-
-
 # 📦 Inventara
 
 A modern warehouse inventory management system built with **Laravel 12**, **React 19**, and **MySQL**.
