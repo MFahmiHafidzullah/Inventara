@@ -260,6 +260,7 @@ php artisan serve
 Start React (Vite)
 
 ```bash
+cd frontend
 npm run dev
 ```
 
