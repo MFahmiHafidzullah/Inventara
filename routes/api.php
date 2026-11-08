@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Barang Keluar — semua role bisa buat & lihat
     Route::apiResource('barang-keluar', BarangKeluarController::class)
-        ->except(['update']);
+        ->except(['update', 'show', 'destroy']);
 
     // Approve & Reject — SEMUA USER YANG LOGIN BISA AKSES (middleware role dihapus)
     Route::post('/barang-keluar/{id}/approve', [BarangKeluarController::class, 'approve']);

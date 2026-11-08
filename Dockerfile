@@ -35,17 +35,8 @@ WORKDIR /var/www/html
 # Copy semua file project
 COPY . .
 
-# Copy .env.example ke .env (untuk key:generate)
-RUN if [ -f .env.example ]; then cp .env.example .env; fi
-
 # Install dependencies Laravel
 RUN composer install --optimize-autoloader --no-dev
-
-# Generate APP_KEY
-RUN php artisan key:generate --force
-
-# PENTING: Hapus semua konfigurasi database dari .env agar Laravel pakai Environment Variables Railway
-RUN sed -i '/^DB_/d' .env
 
 # Fix permissions storage
 RUN chmod -R 775 storage bootstrap/cache
@@ -53,4 +44,4 @@ RUN chmod -R 775 storage bootstrap/cache
 EXPOSE 8080
 
 # Jalankan Laravel built-in server
-CMD php artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
