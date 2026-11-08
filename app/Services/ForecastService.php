@@ -13,12 +13,22 @@ class ForecastService
     {
         $barang = Barang::findOrFail($barangId);
 
+        // Tentukan format tanggal berdasarkan driver database
+        $driver = \Illuminate\Support\Facades\DB::connection()->getDriverName();
+        if ($driver === 'sqlite') {
+            $dateExpr = "strftime('%Y-%m', created_at)";
+        } elseif ($driver === 'pgsql') {
+            $dateExpr = "to_char(created_at, 'YYYY-MM')";
+        } else {
+            $dateExpr = "DATE_FORMAT(created_at, '%Y-%m')"; // Fallback MySQL
+        }
+
         // Ambil data keluar per bulan
         $dataKeluar = BarangKeluar::where('barang_id', $barangId)
             ->where('status', 'approved')
-            ->where('created_at', '>=', Carbon::now()->subMonths($periode)->startOfMonth())
-            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as bulan, SUM(jumlah) as total")
-            ->groupBy('bulan')
+            ->where('created_at', '>=', \Carbon\Carbon::now()->subMonths($periode)->startOfMonth())
+            ->selectRaw("{$dateExpr} as bulan, SUM(jumlah) as total")
+            ->groupBy(\Illuminate\Support\Facades\DB::raw($dateExpr))
             ->orderBy('bulan')
             ->pluck('total', 'bulan')
             ->toArray();

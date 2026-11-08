@@ -44,25 +44,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/barang-keluar/{id}/approve', [BarangKeluarController::class, 'approve']);
     Route::post('/barang-keluar/{id}/reject', [BarangKeluarController::class, 'reject']);
 
-    // Notifikasi
-    Route::get('/notifications', function (Illuminate\Http\Request $request) {
-        return response()->json([
-            'unread' => $request->user()->unreadNotifications,
-            'semua' => $request->user()->notifications()->paginate(20),
-        ]);
-    });
-
-    Route::post('/notifications/{id}/read', function ($id, Illuminate\Http\Request $request) {
-        $notif = $request->user()->notifications()->findOrFail($id);
-        $notif->markAsRead();
-        return response()->json(['message' => 'Notifikasi ditandai sudah dibaca']);
-    });
-
-    Route::post('/notifications/read-all', function (Illuminate\Http\Request $request) {
-        $request->user()->unreadNotifications->markAsRead();
-        return response()->json(['message' => 'Semua notifikasi sudah dibaca']);
-    });
-
     // Settings
     Route::get('/settings', [SettingController::class, 'getSettings']);
     Route::post('/settings/logo', [SettingController::class, 'uploadLogo']);

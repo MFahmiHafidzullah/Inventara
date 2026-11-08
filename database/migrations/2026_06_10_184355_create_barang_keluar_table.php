@@ -22,11 +22,9 @@ return new class extends Migration {
 
             $table->date('tanggal');
 
-            $table->enum('status', [
-                'pending',
-                'approved',
-                'rejected'
-            ])->default('pending');
+            $table->string(
+                'status'
+            )->default('pending');
 
             $table->foreignId('approved_by')
                 ->nullable()
